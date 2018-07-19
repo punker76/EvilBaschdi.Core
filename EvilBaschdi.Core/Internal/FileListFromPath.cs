@@ -21,7 +21,6 @@ namespace EvilBaschdi.Core.Internal
         public FileListFromPath(IMultiThreading multiThreading)
         {
             _multiThreading = multiThreading ?? throw new ArgumentNullException(nameof(multiThreading));
-           
         }
 
         /// <inheritdoc />
@@ -38,7 +37,7 @@ namespace EvilBaschdi.Core.Internal
                 throw new ArgumentNullException(nameof(path));
             }
 
-            return Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir.IsAccessible()).ToList();
+            return Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir != null && dir.DirectoryInfo().Exists && dir.IsAccessible()).ToList();
         }
 
         /// <inheritdoc />
